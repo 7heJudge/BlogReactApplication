@@ -1,25 +1,27 @@
-import './App.css';
-import {useState} from "react";
-import {connect, useDispatch, useSelector} from "react-redux";
-import {increment} from "./redux/app-reducer";
+import './App.module.css';
+import ImgMediaCard from "./components/ImgMediaCard/ImgMediaCard";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Post from "./components/Post/Post";
+import {useDispatch} from "react-redux";
+import {useEffect} from "react";
+import {requestPosts} from "./redux/app-reducer";
+import SpringModal from "./components/SpringModal/SpringModal";
 
-function App({count}) {
-    const onHandler = () => {
-      increment();
-    };
+function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(requestPosts());
+    }, [])
     return (
-        <div className="App">
-            List of all Posts:
-            {count}
-            <button onClick={onHandler}>Increment</button>
-        </div>
+        <BrowserRouter>
+            <Switch>
+                <Route exact path='/' component={ImgMediaCard}/>
+                <Route path='/posts/:postId' component={Post}/>
+                <Route path='/addPost' component={SpringModal}/>
+                <Route path='/edit/:postId' component={SpringModal}/>
+            </Switch>
+        </BrowserRouter>
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        count: state.app.count
-    }
-}
-
-export default connect(mapStateToProps, {increment})(App);
+export default App;

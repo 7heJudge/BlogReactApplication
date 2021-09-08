@@ -1,0 +1,11 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1130px;
+    margin: 0px auto;
+}
+
+.wrapper .listItem {
+    margin: 15px
+}
