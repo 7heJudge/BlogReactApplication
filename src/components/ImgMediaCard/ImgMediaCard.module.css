@@ -9,3 +9,17 @@
 .wrapper .listItem {
     margin: 15px
 }
+
+.btnStyles {
+    text-decoration: none;
+    color: slategrey;
+}
+
+.btnAdd {
+    margin: 15px!important;
+    width: 100%;
+}
+
+.btnDelete {
+    background: tomato!important;
+}

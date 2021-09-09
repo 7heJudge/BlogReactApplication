@@ -45,7 +45,7 @@ const appReducer = (state = initialState, action) => {
         case UPDATE_POST: {
             return {
                 ...state,
-                posts: state.posts.filter(post => post.id === action.postId ? {
+                posts: state.posts.map(post => post.id === action.postId ? {
                     title: action.title,
                     body: action.body
                 } : post)
@@ -66,7 +66,7 @@ const appReducer = (state = initialState, action) => {
         case ADD_COMMENT: {
             return {
                 ...state,
-                comments: [...state.comments, {postId: action.postId, body: action.body}]
+                comments: [...state.comments, {postId: action.postId, id: action.id, body: action.body}]
             }
         }
         default:
@@ -82,7 +82,7 @@ export const updatePost = (postId, title, body) => ({type: UPDATE_POST, postId, 
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const toggleIsEdit = (isEdit) => ({type: TOGGLE_IS_EDIT, isEdit});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
-export const addComment = (postId, body) => ({type: ADD_COMMENT, postId, body});
+export const addComment = (postId, id, body) => ({type: ADD_COMMENT, postId, id, body});
 
 export const requestPosts = () => {
     return async (dispatch) => {
@@ -130,9 +130,8 @@ export const requestUpdatePost = (postId, title, body) => {
         try {
             dispatch(toggleIsFetching(true));
             const data = await postsAPI.updatePost(postId, title, body)
-            dispatch(updatePost(data.id, data.title, data.body));
+            dispatch(updatePost(data.data.id, data.data.title, data.data.body));
             dispatch(toggleIsFetching(false));
-            dispatch(toggleIsEdit(false));
         } catch (e) {
             return e;
         }
@@ -157,9 +156,8 @@ export const requestAddComment = (postId, body) => {
         try {
             dispatch(toggleIsFetching(true));
             const data = await postsAPI.addComment(postId, body)
-            dispatch(addComment(data.data.postId, data.data.body));
+            dispatch(addComment(data.data.postId, data.data.id, data.data.body));
             dispatch(toggleIsFetching(false));
-            // dispatch(requestComments(data.data.postId));
         } catch (e) {
             return e;
         }

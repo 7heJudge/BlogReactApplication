@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
@@ -59,7 +59,9 @@ export default function CustomizedAccordions() {
     return (
         <div>
             Comments:
-            {comments && comments.map(comment => <Accordion key={comment.id} square expanded={expanded === `panel${comment.id}`} onChange={handleChange(`panel${comment.id}`)}>
+            {comments && comments.map(comment => <Accordion key={comment.id} square
+                                                            expanded={expanded === `panel${comment.id}`}
+                                                            onChange={handleChange(`panel${comment.id}`)}>
                 <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                     <Typography>Id users: {comment.id}</Typography>
                 </AccordionSummary>

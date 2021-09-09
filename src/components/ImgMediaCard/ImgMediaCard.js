@@ -28,7 +28,7 @@ export default function ImgMediaCard() {
             <Button
                 variant="contained"
                 color="primary"
-                className={classes.button}
+                className={`${classes.button} ${cls.btnAdd}`}
                 onClick={() => history.push('/addPost')}
             >
                 Add new post
@@ -46,17 +46,19 @@ export default function ImgMediaCard() {
                         </CardContent>
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary" onClick={() => {dispatch(toggleIsEdit(true))}}>
-                            <NavLink to={'/edit/' + post.id}>
+                        <Button size="small" onClick={() => {
+                            dispatch(toggleIsEdit(true))
+                        }}>
+                            <NavLink to={'/edit/' + post.id} className={cls.btnStyles}>
                                 Edit
                             </NavLink>
                         </Button>
-                        <Button size="small" color="primary">
-                            <NavLink to={'/posts/' + post.id}>
+                        <Button size="small">
+                            <NavLink to={'/posts/' + post.id} className={cls.btnStyles}>
                                 Learn More
                             </NavLink>
                         </Button>
-                        <Button size="small" color="primary" onClick={() => {
+                        <Button className={`${cls.btnStyles} ${cls.btnDelete}`} size="small" onClick={() => {
                             dispatch(requestDeletePost(post.id))
                         }}>
                             Delete
